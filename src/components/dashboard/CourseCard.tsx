@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { TrendingUp, TrendingDown, Clock } from "lucide-react";
+import { TrendingUp, TrendingDown, Clock, MessageSquare } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface CourseCardProps {
   code: string;
@@ -60,6 +61,13 @@ const CourseCard = ({ code, title, grade, attendance, trend, gradient, delay = 0
             </span>
           )}
         </div>
+
+        <Link to="/dashboard/feedback">
+          <button className="mt-4 w-full flex items-center justify-center gap-2 py-2 rounded-xl border border-border text-xs text-muted-foreground hover:text-primary hover:border-primary/40 transition-all duration-200">
+            <MessageSquare className="w-3.5 h-3.5" />
+            Message Lecturer
+          </button>
+        </Link>
       </div>
     </motion.div>
   );

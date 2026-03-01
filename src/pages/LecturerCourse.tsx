@@ -106,7 +106,7 @@ const LecturerCourse = () => {
         {activeTab === "students" && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-2xl border border-border bg-card overflow-hidden">
             {/* Table Header */}
-            <div className="grid grid-cols-[1fr_80px_80px_80px] gap-4 px-5 py-3 text-xs font-semibold text-muted-foreground uppercase border-b border-border bg-[hsl(220_30%_10%)]">
+            <div className="grid grid-cols-[1fr_80px_80px_1fr] gap-4 px-5 py-3 text-xs font-semibold text-muted-foreground uppercase border-b border-border bg-[hsl(220_30%_10%)]">
               <span>Student</span>
               <span className="text-center">Att %</span>
               <span className="text-center">CA %</span>
@@ -114,38 +114,50 @@ const LecturerCourse = () => {
             </div>
             {/* Rows */}
             <div className="divide-y divide-border">
-              {enrollments.map((enrollment, i) => (
-                <motion.div
-                  key={enrollment.id}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: i * 0.04 }}
-                  className="grid grid-cols-[1fr_80px_80px_80px] gap-4 px-5 py-4 items-center hover:bg-[hsl(220_30%_12%)] transition-colors"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                      <span className="text-xs font-bold text-primary">
-                        {enrollment.student?.full_name?.split(" ").map(n => n[0]).join("")}
+              {enrollments.map((enrollment, i) => {
+                const isAtRiskRow = enrollment.current_risk_status === "at_risk" || enrollment.current_risk_status === "critical";
+                return (
+                  <motion.div
+                    key={enrollment.id}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: i * 0.04 }}
+                    className="grid grid-cols-[1fr_80px_80px_1fr] gap-4 px-5 py-4 items-center hover:bg-[hsl(220_30%_12%)] transition-colors"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                        <span className="text-xs font-bold text-primary">
+                          {enrollment.student?.full_name?.split(" ").map(n => n[0]).join("")}
+                        </span>
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-foreground truncate">{enrollment.student?.full_name}</p>
+                        <p className="text-xs text-muted-foreground">{enrollment.student?.matric_number}</p>
+                      </div>
+                    </div>
+                    <p className={`text-sm font-mono text-center ${enrollment.attendance_pct < 75 ? "text-danger" : "text-foreground"}`}>
+                      {enrollment.attendance_pct}%
+                    </p>
+                    <p className={`text-sm font-mono text-center ${enrollment.ca_pct < 40 ? "text-danger" : "text-foreground"}`}>
+                      {enrollment.ca_pct}%
+                    </p>
+                    <div className="flex items-center justify-center gap-2">
+                      <span className={`text-xs font-bold px-2 py-1 rounded-lg ${statusColors[enrollment.current_risk_status]}`}>
+                        {statusLabels[enrollment.current_risk_status]}
                       </span>
+                      {isAtRiskRow && (
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="text-xs h-7 px-2 border border-warning/40 text-warning hover:bg-warning/10 hover:border-warning/60"
+                        >
+                          Nudge
+                        </Button>
+                      )}
                     </div>
-                    <div className="min-w-0">
-                      <p className="text-sm font-medium text-foreground truncate">{enrollment.student?.full_name}</p>
-                      <p className="text-xs text-muted-foreground">{enrollment.student?.matric_number}</p>
-                    </div>
-                  </div>
-                  <p className={`text-sm font-mono text-center ${enrollment.attendance_pct < 75 ? "text-danger" : "text-foreground"}`}>
-                    {enrollment.attendance_pct}%
-                  </p>
-                  <p className={`text-sm font-mono text-center ${enrollment.ca_pct < 40 ? "text-danger" : "text-foreground"}`}>
-                    {enrollment.ca_pct}%
-                  </p>
-                  <div className="flex justify-center">
-                    <span className={`text-xs font-bold px-2 py-1 rounded-lg ${statusColors[enrollment.current_risk_status]}`}>
-                      {statusLabels[enrollment.current_risk_status]}
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
+                  </motion.div>
+                );
+              })}
             </div>
           </motion.div>
         )}
@@ -242,7 +254,6 @@ const LecturerCourse = () => {
                     type="text"
                     placeholder="e.g., Test 1"
                     className="w-full py-2.5 px-3 glass-input text-sm text-foreground placeholder:text-muted-foreground"
-                    readOnly
                   />
                 </div>
                 <div>
@@ -251,7 +262,7 @@ const LecturerCourse = () => {
                     type="number"
                     placeholder="20"
                     className="w-full py-2.5 px-3 glass-input text-sm text-foreground placeholder:text-muted-foreground"
-                    readOnly
+                    min={1}
                   />
                 </div>
               </div>

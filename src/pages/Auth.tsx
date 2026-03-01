@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import { Activity, Mail, Lock, Eye, EyeOff, ShieldCheck } from "lucide-react";
+import { Activity, Mail, Lock, Eye, EyeOff, ShieldCheck, Hash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import authLibrary from "@/assets/auth-library.jpg";
@@ -130,6 +130,23 @@ const Auth = () => {
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
             </div>
+
+            {role === "student" && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.2 }}
+                className="relative"
+              >
+                <Hash className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[hsl(220_15%_45%)]" />
+                <input
+                  type="text"
+                  placeholder="Matric Number (e.g. 20/0547)"
+                  className="w-full pl-11 pr-4 py-3 glass-input text-[hsl(210_30%_92%)] placeholder:text-[hsl(220_15%_35%)]"
+                />
+              </motion.div>
+            )}
 
             <Button
               type="submit"
