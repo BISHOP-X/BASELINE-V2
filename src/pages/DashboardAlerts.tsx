@@ -22,7 +22,7 @@ const DashboardAlerts = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-6 py-8 max-w-3xl">
+      <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-3xl">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <div className="flex items-center gap-3 mb-8">
             <div className="w-10 h-10 rounded-xl bg-danger/10 flex items-center justify-center">

@@ -70,7 +70,7 @@ const LecturerCourse = () => {
         </div>
       </header>
 
-      <main className="container mx-auto px-6 py-8 max-w-5xl">
+      <main className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-5xl">
         {/* Course Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
           <div className="flex items-center gap-3 mb-2">
@@ -105,15 +105,17 @@ const LecturerCourse = () => {
         {/* Students Tab */}
         {activeTab === "students" && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="rounded-2xl border border-border bg-card overflow-hidden">
-            {/* Table Header */}
-            <div className="grid grid-cols-[1fr_80px_80px_1fr] gap-4 px-5 py-3 text-xs font-semibold text-muted-foreground uppercase border-b border-border bg-[hsl(220_30%_10%)]">
-              <span>Student</span>
-              <span className="text-center">Att %</span>
-              <span className="text-center">CA %</span>
-              <span className="text-center">Status</span>
-            </div>
-            {/* Rows */}
-            <div className="divide-y divide-border">
+            <div className="overflow-x-auto">
+              <div className="min-w-[520px]">
+                {/* Table Header */}
+                <div className="grid grid-cols-[1fr_80px_80px_1fr] gap-4 px-5 py-3 text-xs font-semibold text-muted-foreground uppercase border-b border-border bg-[hsl(220_30%_10%)]">
+                  <span>Student</span>
+                  <span className="text-center">Att %</span>
+                  <span className="text-center">CA %</span>
+                  <span className="text-center">Status</span>
+                </div>
+                {/* Rows */}
+                <div className="divide-y divide-border">
               {enrollments.map((enrollment, i) => {
                 const isAtRiskRow = enrollment.current_risk_status === "at_risk" || enrollment.current_risk_status === "critical";
                 return (
@@ -158,11 +160,11 @@ const LecturerCourse = () => {
                   </motion.div>
                 );
               })}
+                </div>
+              </div>
             </div>
           </motion.div>
         )}
-
-        {/* Attendance Tab */}
         {activeTab === "attendance" && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <div className="flex items-center justify-between mb-6">

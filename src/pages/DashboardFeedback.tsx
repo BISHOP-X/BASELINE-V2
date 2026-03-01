@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, MessageSquare, Send, Clock } from "lucide-react";
+import { ArrowLeft, MessageSquare, Send, Clock, Plus, X } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/AuthContext";
-import { mockFeedbackThreads } from "@/lib/mock-data";
+import { mockFeedbackThreads, mockCourses } from "@/lib/mock-data";
 import type { FeedbackThread } from "@/types/database";
 
 const isLecturerMsg = (senderId: string) => senderId.startsWith("lec");
@@ -14,6 +14,10 @@ const DashboardFeedback = () => {
   const { user } = useAuth();
   const [selectedThread, setSelectedThread] = useState<FeedbackThread | null>(null);
   const [reply, setReply] = useState("");
+  const [composing, setComposing] = useState(false);
+  const [composeSubject, setComposeSubject] = useState("");
+  const [composeCourse, setComposeCourse] = useState("");
+  const [composeBody, setComposeBody] = useState("");
 
   // Filter threads for this student
   const threads = mockFeedbackThreads;
@@ -45,10 +49,86 @@ const DashboardFeedback = () => {
         </div>
       </header>
 
-      <div className="container mx-auto px-6 py-6 max-w-4xl">
+      <div className="container mx-auto px-4 sm:px-6 py-6 max-w-4xl">
         {!selectedThread ? (
           /* Thread List */
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="space-y-3">
+
+            {/* Header row */}
+            <div className="flex items-center justify-between mb-1">
+              <h2 className="text-sm font-semibold text-foreground">Conversations</h2>
+              <Button
+                size="sm"
+                onClick={() => setComposing(v => !v)}
+                className={`gap-1.5 text-xs h-8 ${
+                  composing
+                    ? "bg-[hsl(220_30%_15%)] text-muted-foreground hover:text-foreground border border-border"
+                    : "bg-primary text-primary-foreground hover:bg-primary/90 glow-cyan"
+                }`}
+              >
+                {composing ? <><X className="w-3.5 h-3.5" /> Cancel</> : <><Plus className="w-3.5 h-3.5" /> New Message</>}
+              </Button>
+            </div>
+
+            {/* Compose form */}
+            {composing && (
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                className="rounded-2xl border border-primary/30 bg-primary/5 p-4 space-y-3 mb-2"
+              >
+                <div>
+                  <label className="text-xs text-muted-foreground block mb-1.5">Subject</label>
+                  <input
+                    type="text"
+                    value={composeSubject}
+                    onChange={e => setComposeSubject(e.target.value)}
+                    placeholder="e.g., Question about Test 1 score"
+                    className="w-full py-2.5 px-3 glass-input text-sm text-foreground placeholder:text-muted-foreground"
+                  />
+                </div>
+                <div>
+                  <label className="text-xs text-muted-foreground block mb-1.5">Course</label>
+                  <select
+                    value={composeCourse}
+                    onChange={e => setComposeCourse(e.target.value)}
+                    className="w-full py-2.5 px-3 glass-input text-sm text-foreground bg-transparent"
+                  >
+                    <option value="">Select a course…</option>
+                    {mockCourses.map(c => (
+                      <option key={c.id} value={c.id}>{c.code} — {c.title}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs text-muted-foreground block mb-1.5">Message</label>
+                  <textarea
+                    value={composeBody}
+                    onChange={e => setComposeBody(e.target.value)}
+                    placeholder="Type your message…"
+                    rows={3}
+                    className="w-full py-2.5 px-3 glass-input text-sm text-foreground placeholder:text-muted-foreground resize-none"
+                  />
+                </div>
+                <div className="flex justify-end">
+                  <Button
+                    size="sm"
+                    disabled={!composeSubject.trim() || !composeBody.trim()}
+                    onClick={() => {
+                      setComposing(false);
+                      setComposeSubject("");
+                      setComposeCourse("");
+                      setComposeBody("");
+                    }}
+                    className="gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90 glow-cyan disabled:opacity-40 disabled:cursor-not-allowed"
+                  >
+                    <Send className="w-3.5 h-3.5" /> Send Message
+                  </Button>
+                </div>
+              </motion.div>
+            )}
+
             {threads.length === 0 && (
               <div className="text-center py-16">
                 <MessageSquare className="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-40" />

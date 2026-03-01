@@ -48,26 +48,21 @@ const HeroSection = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="mt-6 text-lg sm:text-xl max-w-2xl text-[hsl(220_15%_65%)]"
+          className="mt-6 text-base sm:text-xl max-w-2xl px-2 sm:px-0 text-[hsl(220_15%_65%)]"
         >
-          Real-time academic monitoring that catches problems before they become failures.
-          Your academic health, always in focus.
+          Catches attendance drops and CA shortfalls before they become failures.
+          Your academic health, always in focus — for students, lecturers, and admins.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.9 }}
-          className="mt-10 flex flex-col sm:flex-row gap-4"
+          className="mt-10 flex flex-col sm:flex-row gap-4 w-full max-w-xs sm:max-w-none sm:justify-center"
         >
-          <Link to="/auth">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 glow-cyan px-8 text-base gap-2">
+          <Link to="/auth" className="w-full sm:w-auto">
+            <Button size="lg" className="w-full sm:w-auto bg-primary text-primary-foreground hover:bg-primary/90 glow-cyan px-8 text-base gap-2">
               Launch Dashboard <ArrowRight className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link to="/auth">
-            <Button size="lg" variant="outline" className="border-[hsl(0_0%_100%/0.15)] text-[hsl(210_30%_92%)] hover:bg-[hsl(0_0%_100%/0.05)] px-8 text-base">
-              I'm a Lecturer
             </Button>
           </Link>
         </motion.div>

@@ -1,0 +1,17 @@
+{
+  "name": "Baseline — Academic Early Warning System",
+  "short_name": "Baseline",
+  "description": "PWA-based student performance monitoring for Babcock University",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0f1e",
+  "theme_color": "#0a0f1e",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}

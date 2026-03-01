@@ -42,12 +42,12 @@ const BentoGrid = () => {
           <h2 className="text-3xl sm:text-4xl font-bold text-foreground">
             Built for <span className="text-gradient">Academic Excellence</span>
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-xl mx-auto">
-            A proactive system that acts as a check engine light for student performance.
+          <p className="mt-4 text-muted-foreground max-w-xl mx-auto text-sm sm:text-base">
+            A proactive check-engine light for student performance — rule-based, real-time, and built for Babcock University.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[280px]">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 auto-rows-[260px] sm:auto-rows-[280px]">
           {features.map((feature, i) => (
             <motion.div
               key={feature.title}
