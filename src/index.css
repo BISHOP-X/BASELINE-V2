@@ -1,0 +1,149 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 20% 97%;
+    --foreground: 220 25% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 10%;
+    --primary: 180 70% 40%;
+    --primary-foreground: 220 25% 5%;
+    --secondary: 220 15% 92%;
+    --secondary-foreground: 220 25% 10%;
+    --muted: 220 15% 92%;
+    --muted-foreground: 220 10% 50%;
+    --accent: 180 70% 40%;
+    --accent-foreground: 220 25% 5%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 15% 88%;
+    --input: 220 15% 88%;
+    --ring: 180 70% 40%;
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 180 70% 40%;
+
+    /* Custom tokens */
+    --cyan: 180 70% 40%;
+    --cyan-glow: 180 100% 60%;
+    --navy: 220 40% 8%;
+    --navy-light: 220 30% 15%;
+    --success: 145 63% 42%;
+    --success-glow: 145 100% 60%;
+    --warning: 38 92% 50%;
+    --danger: 0 72% 51%;
+    --danger-glow: 0 100% 60%;
+    --glass: 0 0% 100% / 0.08;
+    --glass-border: 0 0% 100% / 0.12;
+  }
+
+  .dark {
+    --background: 220 40% 6%;
+    --foreground: 210 30% 92%;
+    --card: 220 35% 10%;
+    --card-foreground: 210 30% 92%;
+    --popover: 220 35% 10%;
+    --popover-foreground: 210 30% 92%;
+    --primary: 180 70% 50%;
+    --primary-foreground: 220 40% 6%;
+    --secondary: 220 30% 15%;
+    --secondary-foreground: 210 30% 92%;
+    --muted: 220 30% 15%;
+    --muted-foreground: 220 15% 55%;
+    --accent: 180 70% 50%;
+    --accent-foreground: 220 40% 6%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 220 30% 18%;
+    --input: 220 30% 18%;
+    --ring: 180 70% 50%;
+    --sidebar-background: 220 40% 8%;
+    --sidebar-foreground: 210 30% 92%;
+    --sidebar-primary: 180 70% 50%;
+    --sidebar-primary-foreground: 220 40% 6%;
+    --sidebar-accent: 220 30% 15%;
+    --sidebar-accent-foreground: 210 30% 92%;
+    --sidebar-border: 220 30% 18%;
+    --sidebar-ring: 180 70% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-[hsl(var(--glass))] backdrop-blur-xl border border-[hsl(var(--glass-border))] rounded-2xl;
+  }
+  .glass-input {
+    @apply bg-[hsl(0_0%_100%/0.06)] backdrop-blur-sm border border-[hsl(0_0%_100%/0.1)] rounded-xl 
+           focus:border-primary focus:ring-1 focus:ring-primary transition-all duration-300;
+  }
+  .glow-cyan {
+    box-shadow: 0 0 30px hsl(180 100% 60% / 0.3), 0 0 60px hsl(180 100% 60% / 0.1);
+  }
+  .glow-green {
+    box-shadow: 0 0 30px hsl(145 100% 60% / 0.3), 0 0 60px hsl(145 100% 60% / 0.1);
+  }
+  .glow-red {
+    box-shadow: 0 0 30px hsl(0 100% 60% / 0.3), 0 0 60px hsl(0 100% 60% / 0.1);
+  }
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-[hsl(var(--cyan-glow))];
+  }
+  .ken-burns {
+    animation: kenburns 25s ease-in-out infinite alternate;
+  }
+  .pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+  .breathe-green {
+    animation: breatheGreen 4s ease-in-out infinite;
+  }
+  .breathe-red {
+    animation: breatheRed 2s ease-in-out infinite;
+  }
+}
+
+@keyframes kenburns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.1) translate(-2%, -1%); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes breatheGreen {
+  0%, 100% { box-shadow: 0 0 20px hsl(145 100% 50% / 0.2), 0 0 40px hsl(145 100% 50% / 0.1); }
+  50% { box-shadow: 0 0 40px hsl(145 100% 50% / 0.4), 0 0 80px hsl(145 100% 50% / 0.2); }
+}
+
+@keyframes breatheRed {
+  0%, 100% { box-shadow: 0 0 20px hsl(0 100% 50% / 0.3), 0 0 40px hsl(0 100% 50% / 0.15); }
+  50% { box-shadow: 0 0 50px hsl(0 100% 50% / 0.5), 0 0 100px hsl(0 100% 50% / 0.25); }
+}
+
+@keyframes gaugeRotate {
+  from { transform: rotate(-135deg); }
+}
