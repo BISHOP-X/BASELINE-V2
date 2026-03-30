@@ -6,6 +6,7 @@ import RiskGauge from "@/components/dashboard/RiskGauge";
 import CourseCard from "@/components/dashboard/CourseCard";
 import { useAuth } from "@/contexts/AuthContext";
 import { mockStudentEnrollments, mockAlerts } from "@/lib/mock-data";
+import PwaInstallPrompt from "@/components/PwaInstallPrompt";
 
 const enrollments = mockStudentEnrollments;
 const unreadAlerts = mockAlerts.filter(a => !a.is_read);
@@ -142,6 +143,7 @@ const Dashboard = () => {
           </div>
         </div>
       </main>
+      <PwaInstallPrompt />
     </div>
   );
 };
