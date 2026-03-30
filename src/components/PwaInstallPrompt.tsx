@@ -69,7 +69,7 @@ const PwaInstallPrompt = () => {
         className="fixed bottom-6 right-6 z-[100] flex items-center gap-2 px-4 py-3 rounded-full bg-primary text-primary-foreground shadow-lg shadow-primary/30 hover:shadow-primary/50 hover:scale-105 transition-all font-semibold text-sm"
       >
         <Download className="w-4 h-4" />
-        <span className="hidden sm:inline">Download App</span>
+        <span className="hidden sm:inline">Download PWA</span>
         <span className="sm:hidden">Install</span>
       </motion.button>
 
